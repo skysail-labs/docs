@@ -1,11 +1,9 @@
 ---
 description: "How balances are held as shielded notes, accumulated in Merkle-tree shards and protected from replay by path-specific on-chain records."
+title: Shielded Pool
 ---
 
-
-# Shielded Pool
-
-{% hint style="info" %}
+<Info>
 **TL;DR**
 
 Your balance on Darknyx is a set of **notes**, UTXO-style values committed on-chain
@@ -13,7 +11,7 @@ as Poseidon hashes. Commitments live in Merkle-tree shards. Every use publishes
 an unlinkable, circuit-derived note-use tag and all consumption paths share the
 same tag-keyed replay guard. Zero-knowledge proofs enforce valid state
 transitions without exposing shielded note openings.
-{% endhint %}
+</Info>
 
 ## Notes, not balances
 

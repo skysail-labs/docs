@@ -1,11 +1,9 @@
 ---
 description: "What Darknyx hides, what remains public, and how clients verify the confidential matcher and its complete on-chain signer set."
+title: "Privacy & Attestation"
 ---
 
-
-# Privacy & Attestation
-
-{% hint style="info" %}
+<Info>
 **TL;DR**
 
 On the programmatic path, Darknyx keeps order intent inside the measured matcher
@@ -14,7 +12,7 @@ boot-random key inside its confidential VM; the deployment gateway passes that
 encrypted stream through. The SDK and daemon verify that live certificate,
 hardware quote, image measurement, boot session, and complete on-chain
 settlement-signer set before sending credentials or orders.
-{% endhint %}
+</Info>
 
 ## Who can see your orders?
 
@@ -97,7 +95,7 @@ single-flight adapter narrows replacement churn, but connector-level refusal and
 supervised boot-rotation recovery remain pre-release gates; the internal
 cryptography record tracks their closure evidence.
 
-{% hint style="warning" %}
+<Warning>
 **TLS alone is not verification**
 
 Connecting over ordinary TLS gives you a private channel to *some* machine.
@@ -105,14 +103,14 @@ Darknyx clients instead bind the certificate on the connection they use to a
 fresh enclave quote and an independently approved measurement. Disabling
 certificate checks or verifying a separate probe connection defeats that
 guarantee.
-{% endhint %}
+</Warning>
 
-{% hint style="warning" %}
+<Warning>
 **Browser access is deferred.** The implemented browser prototype currently
 relays sensitive traffic through an ordinary trader host that can read it. It is
 not the supported external-access path and is not launch-qualified. Use the SDK
 or daemon for the programmatic trust model described on this page.
-{% endhint %}
+</Warning>
 
 ## What attestation does not cover
 

@@ -1,18 +1,16 @@
 ---
 description: "How trading fees work on Darknyx, a basis-point protocol fee both sides pay, collected as notes at settlement and pre-funded by each order's collateral."
+title: Fee Structure
 ---
 
-
-# Fee Structure
-
-{% hint style="info" %}
+<Info>
 **TL;DR**
 
 Darknyx charges a flat **protocol fee** in basis points (for example, 30 bps). **Both
 sides of a trade pay their own fee.** Each order pre-funds its fee as part of its
 collateral, and the fee is collected at settlement as a **fee note** minted to the
 protocol, so fees, like everything else, settle privately on-chain.
-{% endhint %}
+</Info>
 
 ## The fee model
 
@@ -42,7 +40,7 @@ The engine derives the applicable floor-rounded fee at intake. If an order's
 collateral note does not cover both, the order is rejected rather than allowed
 to under-pay.
 
-{% hint style="info" %}
+<Info>
 **Collateral must include the fee**
 
 Read the finalized market and vault configuration when selecting a collateral
@@ -50,7 +48,7 @@ note. The order request carries the note's actual amount; intake recomputes its
 commitment and rejects a note that cannot cover the worst-case nominal amount
 plus fee. Higher-level wallet software can automate that coin selection, but the
 wire-level SDK does not add value to an existing note.
-{% endhint %}
+</Info>
 
 ## How fees are collected
 

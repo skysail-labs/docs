@@ -1,11 +1,9 @@
 ---
 description: "Move SPL tokens into the vault through a proof-gated deposit that hides the shielded note owner and remains recoverable from seed plus chain."
+title: Deposit
 ---
 
-
-# Deposit
-
-{% hint style="info" %}
+<Info>
 **TL;DR**
 
 A deposit moves SPL tokens into the Solana vault and appends a new note
@@ -13,7 +11,7 @@ commitment. Before custody changes, the vault verifies a VALID_DEPOSIT proof tha
 the commitment contains the public mint and amount and a valid hidden owner. The
 transaction reveals the funding signer, mint, and gross amount, but not the
 wallet-wide note owner or the note's inner hash.
-{% endhint %}
+</Info>
 
 ## What a deposit does
 
@@ -54,7 +52,7 @@ The configured prover suite generates VALID_DEPOSIT locally. The SDK submits the
 transaction and reads the emitted tree shard and leaf index so the resulting
 note can immediately back an order, merge, or withdrawal.
 
-{% hint style="warning" %}
+<Warning>
 **`depositIndex` must advance, and the chain now enforces it**
 
 `depositIndex` feeds the note's recovery nonce, which is fully deterministic
@@ -76,7 +74,7 @@ The realistic way to hit this is not malice but a **seed-only restore**: nothing
 on-chain records how far your `depositIndex` has advanced, so a client rebuilt
 from the seed alone restarts at `0`. Persist the index alongside your note
 store, or scan forward for the first unused one before depositing.
-{% endhint %}
+</Warning>
 
 ## Recovery
 

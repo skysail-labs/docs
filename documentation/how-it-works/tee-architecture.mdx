@@ -1,11 +1,9 @@
 ---
 description: "Why Darknyx matches inside an attested Intel TDX confidential VM, how that identity reaches Solana, and where the trust boundary remains."
+title: "Confidential VM Architecture"
 ---
 
-
-# Confidential VM Architecture
-
-{% hint style="info" %}
+<Info>
 **TL;DR**
 
 Darknyx matches hidden orders inside an **Intel TDX confidential VM**. Hardware
@@ -14,7 +12,7 @@ order, while Solana accepts settlement only from the registered signer set and
 only with a valid zero-knowledge proof. This reduces trust in the infrastructure
 operator, but does not erase it: clients still trust the approved measurement,
 Intel TDX, governance, and the matching policy implemented by that measured code.
-{% endhint %}
+</Info>
 
 ## Why matching needs a confidential computer
 

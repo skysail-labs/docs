@@ -1,11 +1,9 @@
 ---
 description: "How balances work on Darknyx, as UTXO-style notes you own on-chain, reconstructed client-side from Merkle proofs and your own keys."
+title: Account Model
 ---
 
-
-# Account Model
-
-{% hint style="info" %}
+<Info>
 **TL;DR**
 
 Darknyx has no server-held balance ledger. Your assets are **UTXO-style notes**
@@ -13,7 +11,7 @@ committed on-chain as hashes. Only you, with your spending key, can determine
 which notes are yours and what they are worth. You reconstruct your account state
 **client-side** from the public Merkle tree plus your keys; the engine never sees
 the spending key that would let it do it for you.
-{% endhint %}
+</Info>
 
 ## Why there is no balance in `GET /account`
 
