@@ -1,7 +1,9 @@
 ---
 description: "Darknyx is a privacy-preserving spot darkpool on Solana, with hidden orders matched inside an attested confidential VM and value movement proven on-chain."
-title: Overview
 ---
+
+
+# Overview
 
 <Info>
 **TL;DR**
@@ -20,10 +22,9 @@ account. On the supported programmatic path they travel over an
 attestation-bound TLS connection that terminates inside the hardware-isolated
 matching engine, whose exact compiled code and boot-scoped certificate are
 remotely verifiable. The dstack gateway passes that TLS stream through without
-learning the plaintext. Browser access is deferred and does not carry this
-guarantee. See
+learning the plaintext. See
 [Transport & Attestation](/api-reference/getting-started/transport-and-attestation)
-for the verification boundary and current pre-release qualification.
+for the complete verification boundary.
 
 Unlike an off-chain matching desk, Darknyx does not give one ordinary operator both
 custody and readable order flow:
@@ -37,7 +38,7 @@ custody and readable order flow:
 
 The result is a venue where matching policy is enforced by code you can attest,
 while asset identity, arithmetic, conservation, fees, and output ownership are
-enforced by a proof the chain verifies. See [Why Darknyx](./design-thesis.md) for the
+enforced by a proof the chain verifies. See [Why Darknyx](./design-thesis.mdx) for the
 full trust decomposition.
 
 ## What "private" means here
@@ -82,7 +83,7 @@ Darknyx is three layers that compose into one trust chain.
 ```
 
 - **Custody (Solana).** A single program owns custody: the incremental Merkle
-  tree of note commitments, the nullifier and consumed-note sets that prevent
+  tree of note commitments, the shared consumed-note set that prevents
   double-spends, the Groth16 verifier, and the atomic batched-settlement path.
 - **Matching (the CVM).** The engine accepts orders over an authenticated
   HTTPS/WebSocket surface, enforces limits and an oracle circuit-breaker policy,
@@ -116,13 +117,13 @@ margin, funding) simply are not part of the model.
 
 ## Next steps
 
-- [Why Darknyx](./design-thesis.md): the product thesis, exact trust boundary, and
+- [Why Darknyx](./design-thesis.mdx): the product thesis, exact trust boundary, and
   tradeoffs.
-- [Programmatic Access](./programmatic-access.md): the API surface, the auth
+- [Programmatic Access](./programmatic-access.mdx): the API surface, the auth
   model, and a quick start.
 - [Base URLs](/api-reference/getting-started/base-urls): where the endpoints live and the common
   response conventions.
-- [Trade Flow](../how-it-works/trade-flow.md): the end-to-end lifecycle of an
+- [Trade Flow](../how-it-works/trade-flow.mdx): the end-to-end lifecycle of an
   order, from submission to on-chain settlement.
-- [Multi-Market Venue](../how-it-works/multi-market.md): how several isolated
+- [Multi-Market Venue](../how-it-works/multi-market.mdx): how several isolated
   books share one attested endpoint.

@@ -1,8 +1,9 @@
 ---
 description: "A public, unauthenticated proof-of-reserves covering per-mint outstanding liabilities versus vault balances, plus the engine's attested identity."
-openapi: "api-reference/openapi/darknyx-public.yaml GET /transparency"
-title: Transparency
+title: "Transparency"
+openapi: "/api-reference/openapi/darknyx-public.yaml GET /transparency"
 ---
+
 
 <Info>
 **TL;DR**
@@ -110,6 +111,6 @@ deltas or treat the values as historical volume.
   shows `vault_balance < outstanding`.
 - **Pre-trade trust check.** Confirm reserves cover liabilities, then perform the
   independent quote, measurement, and full signer-set checks described in
-  [Transport & Attestation](../getting-started/transport-and-attestation.md).
+  [Transport & Attestation](../getting-started/transport-and-attestation.mdx).
 - **Public dashboards.** Because it is unauthenticated and leaks nothing about
   individuals, it is safe to surface on a status page.

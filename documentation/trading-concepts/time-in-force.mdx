@@ -1,7 +1,9 @@
 ---
 description: "How long an order stays working (GTC, GTT, IOC, and FOK), expressed through the order type and a slot-based expiry."
-title: Time in Force
 ---
+
+
+# Time in Force
 
 <Info>
 **TL;DR**
@@ -76,6 +78,6 @@ rests and never partially fills, but still carries a settlement-safe expiry.
 Because settlement is on Solana, expiry is anchored to the chain's clock, the
 slot, so it stays consistent with on-chain state. `/time` gives you both the slot
 and the wall-clock instant so you can convert between them. See
-[Order Types](./order-types.md) for how the type controls resting, and
-[Execution Attributes](./execution-attributes.md) for fill-size constraints.
+[Order Types](./order-types.mdx) for how the type controls resting, and
+[Execution Attributes](./execution-attributes.mdx) for fill-size constraints.
 </Info>

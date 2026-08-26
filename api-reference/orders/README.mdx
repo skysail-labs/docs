@@ -16,16 +16,16 @@ on-chain transaction.
 
 | Operation | Endpoint | Notes |
 |---|---|---|
-| [Place Order](place-order.md) | `POST /orders` | Carries the collateral commitment, input proof and viewing key. |
-| [Get Order](get-order.md) | `GET /orders/{order_id}` | Current status while the order remains in bounded server retention. |
-| [Modify Order](modify-order.md) | `PUT /orders/{order_id}` | Atomic cancel + replace. |
-| [Cancel Order](cancel-order.md) | `DELETE /orders/{order_id}` | Signed cancel intent. |
+| [Place Order](place-order.mdx) | `POST /orders` | Carries the collateral commitment, input proof and viewing key. |
+| [Get Order](get-order.mdx) | `GET /orders/{order_id}` | Current status while the order remains in bounded server retention. |
+| [Modify Order](modify-order.mdx) | `PUT /orders/{order_id}` | Atomic cancel + replace. |
+| [Cancel Order](cancel-order.mdx) | `DELETE /orders/{order_id}` | Signed cancel intent. |
 
-{% hint style="info" %}
+<Info>
 You do not assemble the cryptographic fields by hand. The
 [TypeScript SDK](/documentation/sdk/typescript-client) takes your keys and a
 spendable note and produces a ready-to-sign request.
-{% endhint %}
+</Info>
 
 `GET /orders/{order_id}` is a live reconciliation aid, not permanent history.
 Terminal orders age out and then return `404`. Consume the orders stream for

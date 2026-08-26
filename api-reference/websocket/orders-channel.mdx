@@ -1,7 +1,9 @@
 ---
 description: "A per-account stream of settlement reservations, confirmed fills, terminal failures, cancellations, and expiries."
-title: Orders Channel
 ---
+
+
+# Orders Channel
 
 <Info>
 **TL;DR**
@@ -85,7 +87,7 @@ order.place ──► pending_settlement ──► partially_filled ──► �
 
 A partial fill carries the residual size so you always know how much is still
 working; the matching fill *memo* (which note the change went into) arrives on
-the [Fills Channel](./fills-channel.md).
+the [Fills Channel](./fills-channel.mdx).
 
 ## Gap recovery
 

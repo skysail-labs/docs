@@ -1,7 +1,9 @@
 ---
 description: "How HTTPS reaches the confidential VM and how a client verifies the quote-bound image and complete on-chain signer set."
-title: "Transport & Attestation"
 ---
+
+
+# Transport & Attestation
 
 <Info>
 **TL;DR**
@@ -36,33 +38,6 @@ What this gives you:
   an unrelated probe is not enough.
 - **One boundary for REST and streams.** HTTPS and `wss://` use the same
   boot-scoped enclave identity.
-
-<Warning>
-**Pre-release status.** The programmatic RA-TLS path is implemented and has
-completed live devnet settlement tests, but it remains under launch
-qualification. Replacement-connection handling, restart recovery, safe-default
-policy, and GPU deployment parity must all pass their release gates before
-mainnet or external real-value use.
-</Warning>
-
-## Browser status
-
-<Warning>
-The browser trader is deferred and is not a supported external-access path.
-Its current prototype talks through an ordinary **trader host**, which can read
-orders, cancellations, and fill streams in plaintext:
-
-```text
-browser ──TLS──► trader host ──verified RA-TLS──► Darknyx CVM
-                (ordinary server)
-                plaintext here
-```
-
-On-device signatures and custody still prevent that host from forging orders or
-extracting the user's seed, but they do not hide order flow from it. Browser
-launch requires a separate design and security review that removes this
-plaintext boundary. Use the SDK or daemon for the trust model documented here.
-</Warning>
 
 ## Verifying the engine
 
@@ -186,11 +161,3 @@ client actually uses.
 
 Served by the deployment's ingress rather than by the engine, these expose the
 underlying artifacts so a third party can reproduce the verification independently.
-
-
-
-
-
-
-
-

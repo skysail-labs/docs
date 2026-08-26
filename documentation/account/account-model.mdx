@@ -1,7 +1,9 @@
 ---
 description: "How balances work on Darknyx, as UTXO-style notes you own on-chain, reconstructed client-side from Merkle proofs and your own keys."
-title: Account Model
 ---
+
+
+# Account Model
 
 <Info>
 **TL;DR**
@@ -45,7 +47,7 @@ which are unspent (no path-specific consume record)  →  what you can use
 This is the self-custodial design: the data needed for recovery is public, and
 only your keys turn it into a balance. Before sending private order intent, you
 still verify the enclave measurement and signer set; see
-[Privacy & Attestation](../how-it-works/privacy-and-attestation.md).
+[Privacy & Attestation](../how-it-works/privacy-and-attestation.mdx).
 
 ## What you read, and from where
 
@@ -62,7 +64,7 @@ still verify the enclave measurement and signer set; see
 The **SDK** wraps this: from your seed it derives your keys, scans the tree, and
 maintains a local note store of your spendable notes, so in practice you call an
 SDK method, not the raw tree endpoints. See
-[SDK → TypeScript Client](../sdk/typescript-client.md).
+[SDK → TypeScript Client](../sdk/typescript-client.mdx).
 
 ## The note lifecycle
 
@@ -116,12 +118,30 @@ securely generated **master seed** and its encrypted backup.
   recoverable from the **encrypted ciphertext stored on-chain at settlement**.
   The SDK decrypts the two-amount tuple with your viewing key, derives outputs
   from the consumed opening, and can rebuild deposit/fill/merge chains with
-  `recoverNotesFromChain`. A live recovery drill remains a mainnet gate. See
+  `recoverNotesFromChain`. See
   [Fills Channel](/api-reference/websocket/fills-channel).
 
 The upshot: protect the encrypted seed backup. The engine never becomes your
 custodian; the seed backup + finalized chain are the durable recovery material
 for funds and note openings.
+
+### One seed, separate roles
+
+The 64-byte CSPRNG master seed is the recovery root for the Darknyx keys and
+note openings held by your client:
+
+```text
+64-byte master seed
+  ├── spending key ──► shielded owner commitment
+  ├── indexed trading keys ──► place / cancel / modify signatures
+  ├── X25519 recovery key ──► decrypt settled trade and change amounts
+  └── per-deposit note secret ──► recover the deposit opening
+```
+
+The Solana wallet that signs deposits and withdrawals is separate and is not
+derived from this seed. Shielded ownership is derived directly from the
+spending key, so the encrypted seed backup covers that identity without any
+additional owner secret.
 
 If you run the reference market-maker daemon, also back up its adjacent
 `*.order-sequence` file. Orders that never settle do not appear on-chain, so
@@ -138,7 +158,7 @@ Two different keys, two different jobs. Keep them distinct.
 | Key | Used for | Seen by the enclave? |
 |---|---|---|
 | **Trading key** | Signing orders (place / cancel / modify). The cryptographic identity an order is attributed to. | The public key, yes, to verify your signature. |
-| **Spending key** | Deriving note ownership and nullifiers; authorizing withdrawals. | **Never.** It stays on your client. |
+| **Spending key** | Deriving note ownership and authorizing withdrawals. | **Never.** It stays on your client. |
 
 The enclave can verify *who placed an order* (trading key) without ever being
 able to determine *what you hold* (spending key). That split is what lets

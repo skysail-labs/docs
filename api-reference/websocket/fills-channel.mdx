@@ -1,7 +1,9 @@
 ---
 description: "A per-account stream of consumed-input-bound memos for verifying and storing change notes."
-title: Fills Channel
 ---
+
+
+# Fills Channel
 
 <Info>
 **TL;DR**
@@ -19,7 +21,7 @@ note** that you own. To spend it later you need the amount and derived inner
 hash. The channel supplies the amount and identifies the consumed note; the SDK
 uses that locally held input opening to derive the expected v3 output.
 
-The [Orders Channel](./orders-channel.md) tells you *that* an order filled and how
+The [Orders Channel](./orders-channel.mdx) tells you *that* an order filled and how
 much. The fills channel tells you *which note* the change went into so you can
 spend it.
 
@@ -87,7 +89,7 @@ guard that keeps a misbehaving engine from substituting a note you do not own.
 
 The live memo is the low-latency path, not the durable one. The permanent source
 of a change note is **on-chain**: when you place an order with a `viewing_pubkey`
-(see [Place Order](../orders/place-order.md)), the engine encrypts each change amount
+(see [Place Order](../orders/place-order.mdx)), the engine encrypts each change amount
 to that key and writes the ciphertext into the settlement on Solana. That
 ciphertext is permanent and survives an engine redeploy, so the change note is
 recoverable long after the live memo is gone.

@@ -1,7 +1,7 @@
 ---
 description: "Replace a resting order atomically with an in-place cancel-and-replace, leaving no window where you hold neither order."
-openapi: "api-reference/openapi/darknyx-public.yaml PUT /orders/{order_id}"
-title: Modify Order
+title: "Modify Order"
+openapi: "/api-reference/openapi/darknyx-public.yaml PUT /orders/{order_id}"
 ---
 
 <Info>
@@ -47,7 +47,7 @@ happens whole, or nothing changes.
 | ------------------ | -------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | `cancel_signature` | string         | Yes      | 64-byte hex. Ed25519 signature over the canonical cancel body of the OLD order, which proves ownership of what is being replaced. |
 | `cancel_nonce`     | decimal string | Yes      | Canonical `u64` decimal string bound into `cancel_signature`; the string form is lossless in JavaScript.                          |
-| `replacement`      | object         | Yes      | A complete, independently-signed [Place Order](./place-order.md) body. It carries its own collateral note and input proof.        |
+| `replacement`      | object         | Yes      | A complete, independently-signed [Place Order](./place-order.mdx) body. It carries its own collateral note and input proof.        |
 
 The trading key that signs the cancel **must** be the key that signs the
 replacement. The replacement may reuse the old order's note and proof while that

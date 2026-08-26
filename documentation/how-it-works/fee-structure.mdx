@@ -1,7 +1,9 @@
 ---
 description: "How trading fees work on Darknyx, a basis-point protocol fee both sides pay, collected as notes at settlement and pre-funded by each order's collateral."
-title: Fee Structure
 ---
+
+
+# Fee Structure
 
 <Info>
 **TL;DR**
@@ -26,7 +28,7 @@ Two principles define how it is applied:
 
 - **Both legs pay.** The bid and the ask each pay a fee on their own side of the
   trade. There is no maker rebate or taker surcharge, because a batch auction has
-  no maker/taker roles (see [Clearing Price](../trading-concepts/clearing-price.md)).
+  no maker/taker roles (see [Clearing Price](../trading-concepts/clearing-price.mdx)).
 - **The fee is pre-funded.** An order must reserve enough note value to cover
   *both* its nominal cost *and* its own fee. The required collateral is:
 
@@ -71,6 +73,21 @@ Because the fee is charged on the actual cleared amount, an order that locked
 fee-inclusive collateral on its worst-case limit and then fills at a better
 clearing price gets unused collateral back as part of its change note.
 
+## Fee-note privacy and recovery
+
+Fee notes must be recoverable by the protocol without becoming a public clue to
+which deposited note traded. Their private inner value therefore incorporates
+a rotating **fee epoch key** together with the consumed note's unlinkable use
+tag and the fee side. The settlement proof binds the key's governed on-chain
+commitment and epoch without revealing the key itself.
+
+This prevents an observer from trying every plausible small fee amount and
+matching the resulting public fee commitment back to a historical input leaf.
+For durability, each verified batch also records a fixed-size encrypted fee
+recovery bundle. Historical epoch keys let the protocol reconstruct only the
+fee notes that actually settled on finalized chain; users do not manage these
+keys or bundles.
+
 ## Worked example
 
 Suppose the fee rate is 30 bps (0.30%) and you place a bid to buy `10` base at a
@@ -90,7 +107,9 @@ configured `price_scale`, with every division rounded down as shown above.
 ## Why fees settle as notes
 
 Collecting fees as on-chain notes keeps the whole system consistent: there is one
-value-movement mechanism (notes, gated by proofs), one place fees are visible (the
-public [transparency](/api-reference/settlement/transparency) reserves, which account for every
-mint including the protocol's), and no privileged off-chain ledger. Fees are as
-private and as verifiable as trades.
+value-movement mechanism (notes, gated by proofs), one place aggregate
+liabilities are visible (the public
+[transparency](/api-reference/settlement/transparency) reserves, which account
+for every mint including the protocol's), and no privileged off-chain ledger.
+Individual fee amounts and their input lineage remain shielded while the proof
+still enforces the exact configured fee.

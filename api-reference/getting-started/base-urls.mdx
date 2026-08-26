@@ -1,7 +1,9 @@
 ---
 description: "Where the Darknyx API lives, the common request and response conventions, and the health and time endpoints."
-title: Base URLs
 ---
+
+
+# Base URLs
 
 <Info>
 **TL;DR**
@@ -35,13 +37,7 @@ The exact host and approved measurement are published with the reviewed
 release. The `s` suffix selects TLS passthrough; omitting it reaches a different
 gateway-terminated transport and is not equivalent. Verify the connection
 before authentication as described in
-[Transport & Attestation](./transport-and-attestation.md).
-
-<Warning>
-The browser trader is deferred and not a supported external access path. Its
-ordinary trader host has a different trust boundary and must not be assumed to
-inherit the direct SDK/daemon guarantee described here.
-</Warning>
+[Transport & Attestation](./transport-and-attestation.mdx).
 
 ## Common headers
 
@@ -73,7 +69,7 @@ carries `x-request-id` for support correlation.
 | `429 Too Many Requests` | Rate limited. Back off and retry. |
 | `503 Service Unavailable` | New trading is paused because a required subsystem or finalized governance view is unavailable; a requested tree shard's mirror is unsafe; or credential verification is momentarily at capacity. |
 
-See [Error Codes](error-codes.md) for the full catalogue of conditions
+See [Error Codes](error-codes.mdx) for the full catalogue of conditions
 per status.
 
 ## Health
@@ -81,7 +77,7 @@ per status.
 
 
 A liveness probe. Returns `200` with the process uptime when the engine is up.
-Use it for load-balancer health checks; use [`/system/status`](../system/system-status.md)
+Use it for load-balancer health checks; use [`/system/status`](../system/system-status.mdx)
 for a richer, trading-relevant readiness signal (is matching running, is
 settlement wired).
 
@@ -105,7 +101,7 @@ and for clock-skew diagnostics.
 | `slot` | integer | The TEE's current view of the Solana slot. |
 | `unix_ms` | integer | Server wall-clock time, milliseconds since the Unix epoch. |
 
-<Tip>
+<Check>
 **Order expiry is slot-based**
 
 Darknyx orders expire at a **Solana slot**, not a wall-clock timestamp. To place a
@@ -113,4 +109,4 @@ Darknyx orders expire at a **Solana slot**, not a wall-clock timestamp. To place
 target onto a slot using the current slot as the anchor (Solana targets roughly
 400 ms per slot), and pass that as `expiry_slot`. The SDK does this conversion
 for you. See [Time in Force](/documentation/trading-concepts/time-in-force).
-</Tip>
+</Check>

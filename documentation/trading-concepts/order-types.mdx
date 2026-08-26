@@ -1,7 +1,9 @@
 ---
 description: "The order types Darknyx supports (limit, IOC, and FOK) plus the market and all-or-none conventions built on top of them."
-title: Order Types
 ---
+
+
+# Order Types
 
 <Info>
 **TL;DR**
@@ -16,7 +18,7 @@ the batch's single oracle-anchored price.
 
 Darknyx is a **batch auction**, not a continuous order book. Each tick, the engine
 collects the resting orders that cross and clears them at a **single uniform
-price** anchored to the market's oracle (see [Clearing Price](./clearing-price.md)).
+price** anchored to the market's oracle (see [Clearing Price](./clearing-price.mdx)).
 There is no maker/taker ordering *within* a batch; both sides of every match get
 the same price. The order type controls how long an order is willing to wait and
 whether it may rest.
@@ -81,7 +83,7 @@ An **all-or-none** order is a **limit with `min_fill_size = amount`**. It rests
 like a normal limit but only fills if the batch can fill its *entire* size at its
 limit or better; otherwise it waits. Unlike FOK (which is immediate), an AON limit
 keeps resting until a batch can satisfy it whole. See
-[Execution Attributes](./execution-attributes.md).
+[Execution Attributes](./execution-attributes.mdx).
 
 ## Summary
 
@@ -93,5 +95,5 @@ keeps resting until a batch can satisfy it whole. See
 | IOC | No | Yes | Taking available liquidity, no resting remainder. |
 | FOK | No | No (all-or-none) | Immediate, whole, or nothing. |
 
-See [Order Compatibility](./order-compatibility.md) for which combinations of type,
+See [Order Compatibility](./order-compatibility.mdx) for which combinations of type,
 time-in-force, and execution attributes are valid.

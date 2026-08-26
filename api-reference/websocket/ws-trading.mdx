@@ -1,7 +1,9 @@
 ---
 description: "Submit framed place, cancel, and modify requests on the multiplexed session stream."
-title: Order Operations
 ---
+
+
+# Order Operations
 
 <Info>
 **TL;DR**
@@ -56,9 +58,9 @@ reply echoes so a client can correlate responses on the multiplexed socket.
 | `login` | `request_id?`, `token`, `cancel_on_disconnect?` | establishes or refreshes session auth |
 | `subscribe` | `request_id?`, `channels` | subscribes to `orders`, `fills`, or `tree` |
 | `unsubscribe` | `request_id?`, `channels` | removes one or more subscriptions |
-| `order.place` | `request_id?`, `params` (a full [Place Order](../orders/place-order.md) body) | `POST /orders` |
+| `order.place` | `request_id?`, `params` (a full [Place Order](../orders/place-order.mdx) body) | `POST /orders` |
 | `order.cancel` | `request_id?`, `order_id`, `params` (`trading_key`, `cancel_nonce`, `session_id`, `trading_key_signature`) | `DELETE /orders/{id}` |
-| `order.modify` | `request_id?`, `order_id`, `params` (a [Modify Order](../orders/modify-order.md) body) | `PUT /orders/{id}` |
+| `order.modify` | `request_id?`, `order_id`, `params` (a [Modify Order](../orders/modify-order.mdx) body) | `PUT /orders/{id}` |
 | `ping` | `request_id?` | none |
 | `logout` | `request_id?` | closes the session cleanly |
 
@@ -78,7 +80,7 @@ can detect a dropped frame.
 | `order.modify` | `seq`, `request_id?`, `result` | Order modified. |
 | `pong` | `seq`, `request_id?` | Heartbeat reply. |
 | `auth_expired` | `seq`, `expires_at` | Refresh the token with another `login` before expiry. |
-| `error` | `seq`, `request_id?`, `code`, `message` | A frame failed. `code` is the stable numeric [error code](../getting-started/error-codes.md); `message` is the same reason the REST path would have returned. |
+| `error` | `seq`, `request_id?`, `code`, `message` | A frame failed. `code` is the stable numeric [error code](../getting-started/error-codes.mdx); `message` is the same reason the REST path would have returned. |
 
 ```json
 { "op": "order.place", "seq": 1, "request_id": "r1", "result": { "order_id": "aa…01", "status": "accepted", "arrival_slot": 309482113 } }
@@ -161,5 +163,5 @@ setInterval(() => ws.send(JSON.stringify({ op: "ping", request_id: next() })), 2
 | Disconnect safety | None | Optional cancel-on-disconnect |
 | Best for | One-off calls, cold starts | Long-running trading clients, market makers |
 
-For live order state and fill memos, subscribe to the [Orders Channel](./orders-channel.md)
-and [Fills Channel](./fills-channel.md) on this same socket.
+For live order state and fill memos, subscribe to the [Orders Channel](./orders-channel.mdx)
+and [Fills Channel](./fills-channel.mdx) on this same socket.

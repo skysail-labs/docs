@@ -1,7 +1,9 @@
 ---
 description: "How balances are held as shielded notes, accumulated in Merkle-tree shards and protected from replay by path-specific on-chain records."
-title: Shielded Pool
 ---
+
+
+# Shielded Pool
 
 <Info>
 **TL;DR**
@@ -51,9 +53,8 @@ commitments. You read roots and inclusion paths through the
 
 ## Replay guards prevent double-spends
 
-A commitment proves a note *exists*. A withdrawal proof also derives a
-**nullifier** from the spending key and private inner hash. The shared on-chain
-consume-once handle, however, is the note-use tag:
+A commitment proves a note *exists*. Every spending proof derives the shared
+on-chain consume-once handle, the note-use tag:
 
 - `note_use_tag = Hash(note_commitment, inner_hash)` is **unlinkable** to the
   public leaf without the private inner hash, and
@@ -66,9 +67,10 @@ use note ──► publish note-use tag
    try to use it again ──► same consumed-note PDA already exists ──► rejected
 ```
 
-Settlement payload v11 publishes neither input nullifiers nor input commitments.
-Instead, the zero-knowledge circuits derive unlinkable note-use tags from each
-commitment and its private inner hash; lock, settlement, withdrawal, and merge
+Public settlement data contains neither input commitments nor a second spend
+identifier. Instead, the zero-knowledge circuits derive unlinkable note-use
+tags from each commitment and its private inner hash; lock, settlement,
+withdrawal, and merge
 derive their PDAs from those tags. A second attempt collides with the existing
 lock or shared `ConsumedNoteEntry`, while an observer cannot string-match the
 handle to its Merkle leaf. Deposit
@@ -79,12 +81,29 @@ than left to the matcher.
 
 ## The amount-independent inner hash
 
-Each note's commitment and its nullifier are both anchored on a single
-amount-independent value, the note's **inner hash**. For a match output, the
-settlement circuit derives the new inner as
-`Poseidon3(24, consumed_input_inner, role)`. The matcher can therefore re-lock a
-partial-fill remainder without caller-selected output randomness or a per-fill
-round-trip, while the client can independently reproduce the same opening.
+Each note's commitment and note-use tag are both anchored on a single
+amount-independent value, the note's **inner hash**. It serves two jobs: it is
+the private entropy that separates a commitment from its later use tag, and it
+lets a client deterministically recover descendant notes.
+
+Different note transitions derive it from the private material available to
+that transition:
+
+| Note kind | What the new inner depends on | Why it matters |
+|---|---|---|
+| Deposit | A fresh public recovery nonce plus a seed-derived per-note secret | The nonce makes recovery possible; the secret prevents public reconstruction. |
+| Trade or change | The consumed input's private inner plus an output role | Exact fills and partial-fill continuations are deterministic and recoverable. |
+| Merge | The active inputs' private inners plus their active-slot pattern | Public input commitments alone cannot identify the merged descendant. |
+| Protocol fee | A protocol-held epoch secret with an on-chain governed binding, the consumed use tag, and a fee role | Plausible fee ranges and public commitments cannot be used as a bounded dictionary to recover the input leaf. |
+
+All four constructions are enforced by their corresponding proof. The matcher
+cannot choose arbitrary output randomness, and an observer cannot derive a
+descendant use tag from public commitments alone.
+
+For user trade and change outputs, the settlement circuit uses the equivalent
+of `Hash(consumed_input_inner, output_role)`. The matcher can therefore re-lock
+a partial-fill remainder without a client round-trip, while the client can
+independently reproduce the same opening.
 
 ## Spending in zero knowledge
 
@@ -133,10 +152,9 @@ the note from being withdrawn, merged, or settled elsewhere while that
 settlement may still land. At lock expiry it stops blocking use; cleanup of the
 expired account is separate from spendability.
 
-Every value-moving transition is gated on-chain by a distinct record (a wallet
-entry, duplicate-deposit guard, withdrawal nullifier, consumed-note marker, or
-live note lock), so a note can never be spent twice regardless of what the
-engine does. See [Deposit](../account/deposit.md) and
-[Withdraw](../account/withdraw.md) for the on-ramp and off-ramp,
-[Account Model](../account/account-model.md) for how you reconstruct your spendable
-set, and [Settlement](./settlement.md) for the on-chain spend pipeline.
+Every value-moving transition is gated on-chain by a duplicate-deposit guard,
+shared consumed-note marker, or live note lock, so a note can never be spent
+twice regardless of what the engine does. See [Deposit](../account/deposit.mdx) and
+[Withdraw](../account/withdraw.mdx) for the on-ramp and off-ramp,
+[Account Model](../account/account-model.mdx) for how you reconstruct your spendable
+set, and [Settlement](./settlement.mdx) for the on-chain spend pipeline.

@@ -1,7 +1,9 @@
 ---
 description: "Constrain how an order fills (all-or-none and minimum fill size) independent of its type and time in force."
-title: Execution Attributes
 ---
+
+
+# Execution Attributes
 
 <Info>
 **TL;DR**
@@ -37,7 +39,7 @@ waiting, batch after batch, until one batch can fill it whole at its price.
 amount = 100, min_fill_size = 100   →  fills 100 or nothing, but keeps resting
 ```
 
-This is the resting cousin of [FOK](./order-types.md#fok): FOK demands whole
+This is the resting cousin of [FOK](./order-types.mdx#fok): FOK demands whole
 execution *immediately* and is dropped otherwise; an AON limit demands whole
 execution but is patient.
 
@@ -58,4 +60,4 @@ execution but is patient.
 | `ioc` | Yes | Constrains the immediate take; the residual cancels regardless. |
 | `fok` | Implicit | FOK is already whole-or-nothing; `min_fill_size` adds nothing. |
 
-See [Order Compatibility](./order-compatibility.md) for the full validity matrix.
+See [Order Compatibility](./order-compatibility.mdx) for the full validity matrix.

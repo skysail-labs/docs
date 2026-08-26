@@ -1,7 +1,9 @@
 ---
 description: "Why Darknyx matches inside an attested Intel TDX confidential VM, how that identity reaches Solana, and where the trust boundary remains."
-title: "Confidential VM Architecture"
 ---
+
+
+# Confidential VM Architecture
 
 <Info>
 **TL;DR**
@@ -86,7 +88,7 @@ asset transition. It can still:
 A flaw in the measured application, the hardware, the attestation verifier, or
 the governance process can weaken these properties. Darknyx therefore treats quote
 verification, finalized key refresh, independent circuit review, and split
-multisig control as launch requirements rather than optional operational polish.
+multisig control as core parts of the operating trust model.
 
 ## Why one CVM, not a committee
 
@@ -112,7 +114,7 @@ pauses only markets bound to the affected feed; each `/instruments` entry
 reports that market-local readiness. Oracle, governance, and drain reasons
 remain independent, so recovery of one subsystem cannot accidentally clear
 another. See
-[Multi-Market Venue](./multi-market.md).
+[Multi-Market Venue](./multi-market.mdx).
 
 ## What an integrator should verify
 
@@ -121,5 +123,5 @@ event log, approve the measured release, bind the complete signer set, and compa
 it with finalized on-chain configuration. Pause new trading when that evidence or
 the on-chain key view becomes stale.
 
-See [Privacy & Attestation](./privacy-and-attestation.md) for the verification chain
-and [Settlement](./settlement.md) for the proof boundary.
+See [Privacy & Attestation](./privacy-and-attestation.mdx) for the verification chain
+and [Settlement](./settlement.mdx) for the proof boundary.

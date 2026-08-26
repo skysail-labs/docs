@@ -1,8 +1,9 @@
 ---
 description: "Submit a hidden, fully-collateralized order, covering the request body, the cryptographic fields the SDK builds for you, and the response lifecycle."
-openapi: "api-reference/openapi/darknyx-public.yaml POST /orders"
-title: Place Order
+title: "Place Order"
+openapi: "/api-reference/openapi/darknyx-public.yaml POST /orders"
 ---
+
 
 <Info>
 **TL;DR**
@@ -66,7 +67,7 @@ wire contract is unambiguous.
 | `note_commitment` | string | Yes | 32-byte hex. The commitment of the collateral note backing this order. It is signed into the order and can back at most one live or settlement-pending order in this venue. |
 | `collateral_amount` | integer | No | The value the collateral note actually carries, when it exceeds the order's nominal cost. Lets you point a large note at a small order and receive the surplus back as a change note. Omit for exact collateral. |
 | `owner_commitment` | string | Yes | 32-byte hex. The collateral note's owner commitment, part of the secret opening the in-enclave prover re-derives the commitment from. This is the only note-bound owner identity an order carries, and the one settlement derives output notes back to. Held in enclave memory only. |
-| `note_inner_hash` | string | Yes | 32-byte hex. The note's amount-independent inner hash (an opening field that anchors both the commitment and the nullifier). |
+| `note_inner_hash` | string | Yes | 32-byte hex. The note's amount-independent inner hash (an opening field that anchors both the commitment and unlinkable note-use tag). |
 | `merkle_root` | string | Yes | 32-byte hex. The tree root the input proof was generated against. Checked against the venue's recent-root window **at intake** (`1010` if it has aged out) and against the on-chain root window again at settlement time. |
 | `valid_input_proof` | string | Yes | 256-byte hex. The zero-knowledge proof that the collateral note is in the tree and spendable. **Verified at intake**, before the order is accepted — an invalid proof is refused with `1011` rather than booked. The on-chain program verifies it again at lock time. |
 | `tree_id` | integer | No | Merkle-tree shard containing the collateral note. Defaults to `0`. Intake rejects an out-of-range shard and checks the proof root against that shard's recent-root window, so a wrong shard is refused before booking. |
@@ -137,8 +138,8 @@ Returned with `202 Accepted`.
 
 A `202` means the order passed signature and collateral verification and entered
 the book, **not** that it has filled. Track fills via
-[`GET /orders/{order_id}`](./get-order.md) or the
-[Orders Channel](../websocket/orders-channel.md).
+[`GET /orders/{order_id}`](./get-order.mdx) or the
+[Orders Channel](../websocket/orders-channel.mdx).
 </Info>
 
 ## Order status lifecycle
@@ -167,7 +168,7 @@ distinct order.
 ## Verification at intake
 
 Every order is verified before it enters the book. A non-`202` response carries a
-[structured error code](../getting-started/error-codes.md); the conditions:
+[structured error code](../getting-started/error-codes.mdx); the conditions:
 
 | Check | Status | Code |
 |---|---|---|
@@ -198,5 +199,5 @@ of the signed canonical body.
 Order management is rate-limited per account with a token bucket; cancels are
 cheap, place and modify cost more. A `429` includes a `Retry-After` header. For
 high-frequency management prefer the shared
-[`/v1/stream` session](../websocket/session-stream.md).
+[`/v1/stream` session](../websocket/session-stream.mdx).
 </Info>

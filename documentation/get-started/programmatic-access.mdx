@@ -1,7 +1,9 @@
 ---
 description: "The Darknyx API surface at a glance: the two-layer auth model, the REST and WebSocket endpoints, and a quick start."
-title: Programmatic Access
 ---
+
+
+# Programmatic Access
 
 <Info>
 **TL;DR**
@@ -137,7 +139,7 @@ endpoint. Do not use `curl -k` or disable Node TLS verification for credentials
 or orders: accepting an arbitrary self-signed certificate removes the RA-TLS
 guarantee.
 
-<Tip>
+<Check>
 **Use the SDK**
 
 A raw place-order body is large: it includes a note commitment, a 256-byte
@@ -145,14 +147,8 @@ zero-knowledge input proof, the note opening needed for intake validation, a
 contributory viewing key, and the current boot session, all of which the **TypeScript SDK** signs
 for you from your keys and a deposited note. Hand-building the body is possible
 (the wire contract is documented), but the SDK is the intended path. See
-[SDK → TypeScript Client](../sdk/typescript-client.md).
-</Tip>
-
-<Warning>
-The browser trader is currently deferred and is not the supported access path.
-Its prototype relays sensitive traffic through an ordinary trader host, so the
-programmatic trust model above must not be assumed for browser sessions.
-</Warning>
+[SDK → TypeScript Client](../sdk/typescript-client.mdx).
+</Check>
 
 ## Rate limits
 

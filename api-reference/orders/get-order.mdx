@@ -1,8 +1,9 @@
 ---
 description: "Read the current live status and filled quantity of an order owned by the authenticated account."
-openapi: "api-reference/openapi/darknyx-public.yaml GET /orders/{order_id}"
-title: Get Order
+title: "Get Order"
+openapi: "/api-reference/openapi/darknyx-public.yaml GET /orders/{order_id}"
 ---
+
 
 <Info>
 **TL;DR**
@@ -10,7 +11,7 @@ title: Get Order
 `GET /orders/{order_id}` returns the current state of one order owned by the
 authenticated API account: its status, filled quantity, and remaining size. For
 live updates without polling, subscribe to the
-[Orders Channel](../websocket/orders-channel.md) instead.
+[Orders Channel](../websocket/orders-channel.mdx) instead.
 </Info>
 
 
@@ -66,7 +67,7 @@ curl -s "$GATEWAY/orders/$ORDER_ID" \
 
 Polling `GET /orders/{order_id}` is fine for a one-off check or to reconcile after
 a missed event. For a trading client that needs to react to fills, subscribe to
-the [Orders Channel](../websocket/orders-channel.md): the engine pushes a lifecycle
+the [Orders Channel](../websocket/orders-channel.mdx): the engine pushes a lifecycle
 event (partial fill, full fill, expiry) the moment an order's state changes,
 without a request per check.
 
@@ -87,5 +88,5 @@ particular order.
 
 The book tracks resting and recently-terminal orders. A long-since-filled,
 expired, or cancelled order may no longer be queryable here; recover fill details
-from your seed plus finalized chain (see [Fills Channel](../websocket/fills-channel.md)).
+from your seed plus finalized chain (see [Fills Channel](../websocket/fills-channel.mdx)).
 </Info>

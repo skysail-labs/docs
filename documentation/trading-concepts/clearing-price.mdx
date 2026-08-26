@@ -1,7 +1,9 @@
 ---
 description: "How the attested matcher selects one price for a batch and how the settlement proof constrains the resulting arithmetic."
-title: Clearing Price
 ---
+
+
+# Clearing Price
 
 Each matching interval is a uniform-price batch auction. Crossing orders in the
 batch settle at one clearing price, subject to every order's limit and the
@@ -61,5 +63,5 @@ the configured assets at exactly that scaled arithmetic?"
 - Use a capped IOC for an immediate marketable order. A market ask may use zero;
   a bid must always carry a positive cap.
 
-See [Order Types](./order-types.md) and
-[Privacy & Attestation](../how-it-works/privacy-and-attestation.md).
+See [Order Types](./order-types.mdx) and
+[Privacy & Attestation](../how-it-works/privacy-and-attestation.mdx).

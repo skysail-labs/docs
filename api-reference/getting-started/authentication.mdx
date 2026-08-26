@@ -1,7 +1,9 @@
 ---
 description: "The two-layer Darknyx auth model, account bearer tokens plus per-order trading-key signatures, and how to obtain and use them."
-title: Authentication
 ---
+
+
+# Authentication
 
 <Info>
 **TL;DR**
@@ -38,7 +40,7 @@ Exchange API credentials for a short-lived bearer token.
 
 <Warning>
 Send credentials only through the quote-verified transport described in
-[Transport & Attestation](./transport-and-attestation.md). The raw HTTP snippets
+[Transport & Attestation](./transport-and-attestation.mdx). The raw HTTP snippets
 below illustrate the wire shape; they do not replace the SDK's RA-TLS check.
 Never make them work against the engine's self-signed certificate with `curl -k`
 or an accept-any-certificate setting.
@@ -193,8 +195,8 @@ order's trading key, in addition to the bearer token.
 The canonical encodings are fixed-length and unambiguous, so re-encoding from
 JSON always yields the same bytes to sign. The SDK constructs and signs these for
 you. The exact field layout for each is on the corresponding endpoint page:
-[Place Order](../orders/place-order.md), [Cancel Order](../orders/cancel-order.md),
-[Modify Order](../orders/modify-order.md).
+[Place Order](../orders/place-order.mdx), [Cancel Order](../orders/cancel-order.mdx),
+[Modify Order](../orders/modify-order.mdx).
 
 ## Public (unauthenticated) endpoints
 

@@ -1,7 +1,7 @@
 ---
 description: "Cancel a resting order with a signed cancel request from the owning trading key."
-openapi: "api-reference/openapi/darknyx-public.yaml DELETE /orders/{order_id}"
-title: Cancel Order
+title: "Cancel Order"
+openapi: "/api-reference/openapi/darknyx-public.yaml DELETE /orders/{order_id}"
 ---
 
 <Info>
@@ -86,7 +86,7 @@ curl -s -X DELETE "$GATEWAY/orders/$ORDER_ID" \
 
 When an order is cancelled, the engine releases its collateral reservation and
 drops the in-enclave note opening. A `cancelled` event is also emitted on the
-[Orders Channel](../websocket/orders-channel.md) so a streaming client sees the
+[Orders Channel](../websocket/orders-channel.mdx) so a streaming client sees the
 order leave without polling.
 
 ## Errors
@@ -105,5 +105,5 @@ order leave without polling.
 An order can match in a batch between when you decide to cancel and when the
 cancel lands. If the order has already left the book, the cancel returns `404`.
 Treat a `404` on cancel as "the order is no longer resting" and reconcile via
-[`GET /orders/{order_id}`](./get-order.md) or the orders stream.
+[`GET /orders/{order_id}`](./get-order.mdx) or the orders stream.
 </Info>

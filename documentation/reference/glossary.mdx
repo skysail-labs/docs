@@ -1,7 +1,9 @@
 ---
 description: "Terms and acronyms used across the Darknyx documentation."
-title: Glossary
 ---
+
+
+# Glossary
 
 <Info>
 **TL;DR**
@@ -14,13 +16,13 @@ the page that explains them in depth.
 
 A hardware-signed measurement of the running enclave that a client verifies to
 confirm it is talking to the genuine, expected engine. See
-[Privacy & Attestation](../how-it-works/privacy-and-attestation.md).
+[Privacy & Attestation](../how-it-works/privacy-and-attestation.mdx).
 
 ### Batch auction
 
 The matching model: each tick, crossing orders clear together at a single uniform
 price rather than continuously, pairwise. See
-[Clearing Price](../trading-concepts/clearing-price.md).
+[Clearing Price](../trading-concepts/clearing-price.mdx).
 
 ### Bearer token
 
@@ -39,12 +41,12 @@ order keeps resting. Recovered via a fill memo. See
 The maximum deviation (in basis points) of the clearing price from the oracle
 reference, enforced by the attested matcher. It is part of the market policy, not
 a public input to the settlement circuit. See
-[Clearing Price](../trading-concepts/clearing-price.md).
+[Clearing Price](../trading-concepts/clearing-price.mdx).
 
 ### Clearing price
 
 The single, oracle-anchored price at which every match in a batch settles. See
-[Clearing Price](../trading-concepts/clearing-price.md).
+[Clearing Price](../trading-concepts/clearing-price.mdx).
 
 ### Compose hash
 
@@ -57,14 +59,16 @@ release value; it does not trust the self-reported `/info` field. See
 
 The hardware-isolated Intel TDX virtual machine the matching engine runs inside.
 Its memory is encrypted and its keys are bound to its measured image. See
-[Confidential VM Architecture](../how-it-works/tee-architecture.md).
+[Confidential VM Architecture](../how-it-works/tee-architecture.mdx).
 
 ### Inner hash
 
 A note's amount-independent value that anchors both its commitment and its
-nullifier. Match outputs derive their inner hash from the consumed input inner,
-so clients can verify and recover continuations without pre-supplied pools. See
-[Shielded Pool](../how-it-works/shielded-pool.md).
+note-use tag. Trade and change outputs inherit private input entropy; merge
+outputs combine private input inners; protocol fee outputs incorporate a
+governed epoch secret. Clients can recover their own descendants without
+making those relationships reconstructible from public chain data. See
+[Shielded Pool](../how-it-works/shielded-pool.mdx).
 
 ### Merkle tree
 
@@ -84,25 +88,31 @@ and breaker policy are enforced by the attested matcher. See
 
 A UTXO-style unit of value committed on-chain as a Poseidon hash that seals the
 owner, amount, and token. Your balance is the set of notes you own. See
-[Account Model](../account/account-model.md).
+[Account Model](../account/account-model.mdx).
 
 ### Note commitment
 
 The hash that represents a note on-chain. Opaque from the outside; only the owner
 can recognize and value it.
 
-### Nullifier
-
-A unique proof output derived from the spending key and a note's private inner
-hash. The shared on-chain double-spend guard is the unlinkable note-use tag used
-by withdrawal, settlement, and merge. See
-[Shielded Pool](../how-it-works/shielded-pool.md).
-
 ### Note-use tag
 
 The deterministic, circuit-derived public handle used when a note is locked or
 consumed: `Hash(note commitment, private inner hash)`. It addresses the shared
 lock/consume PDAs without revealing which Merkle leaf is being used.
+
+### Owner commitment
+
+The hidden, wallet-wide note owner derived from the client's spending key. It
+is part of each note commitment and lets the proof enforce ownership, but it is
+not published by deposit, lock, settlement, merge, or withdrawal.
+
+### Recovery nonce
+
+A fresh public BN254 field element generated for each deposit. Together with
+the master seed it deterministically recovers that deposit's private note
+secret and inner hash. An exact retry reuses the original nonce; a new deposit
+generates a new one.
 
 ### Order id
 
@@ -114,13 +124,13 @@ cancel, modify, and get. Settlement output safety does not depend on its uniquen
 The on-chain process that makes a matched trade final: lock, verify the batch
 proof, and execute each atomic match. Marker close happens asynchronously after
 expiry and is not part of trade finality. See
-[Settlement](../how-it-works/settlement.md).
+[Settlement](../how-it-works/settlement.mdx).
 
 ### Spending key
 
-The secret that determines note ownership, derives nullifiers, and authorizes
+The secret that determines note ownership and authorizes
 withdrawals. **Never** seen by the enclave. Distinct from the trading key. See
-[Account Model](../account/account-model.md).
+[Account Model](../account/account-model.mdx).
 
 ### Trading key
 
@@ -146,10 +156,10 @@ authorizes the note, not a particular order id. See
 
 The client-generated proof that a public deposit commitment contains the stated
 mint and positive amount and a valid hidden owner. The vault verifies it before
-moving custody. See [Deposit](../account/deposit.md).
+moving custody. See [Deposit](../account/deposit.mdx).
 
 ### Vault
 
-The on-chain Solana program that holds custody, owns the note tree and nullifier
-set, and verifies settlement proofs. The only layer that can move tokens. See
-[Trade Flow](../how-it-works/trade-flow.md).
+The on-chain Solana program that holds custody, owns the note tree and shared
+consume-once set, and verifies settlement proofs. The only layer that can move tokens. See
+[Trade Flow](../how-it-works/trade-flow.mdx).
