@@ -136,5 +136,14 @@
         ]
       }
     ]
+  },
+  "logo": {
+    "light": "/images/nyx-app-icon-light-180.png",
+    "dark": "/images/nyx-app-icon-dark-180.png"
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/DarknyxProtocol"
+    }
   }
 }
