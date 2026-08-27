@@ -146,6 +146,7 @@
     "light": "/images/nyx-lockup-horizontal-ink.svg",
     "dark": "/images/nyx-lockup-horizontal-chalk.svg"
   },
+  "favicon": "/images/favicon.svg",
   "footer": {
     "socials": {
       "x": "https://x.com/DarknyxProtocol"
