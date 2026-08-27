@@ -150,5 +150,9 @@
     "socials": {
       "x": "https://x.com/DarknyxProtocol"
     }
+  },
+  "favicon": {
+    "light": "/images/nyx-app-icon-light-180.png",
+    "dark": "/images/nyx-app-icon-dark-180.png"
   }
 }
