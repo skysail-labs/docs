@@ -143,8 +143,8 @@
     ]
   },
   "logo": {
-    "light": "/images/nyx-app-icon-light-180.png",
-    "dark": "/images/nyx-app-icon-dark-180.png"
+    "light": "/images/nyx-lockup-horizontal-ink.svg",
+    "dark": "/images/nyx-lockup-horizontal-chalk.svg"
   },
   "footer": {
     "socials": {
