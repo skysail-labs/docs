@@ -1,4 +1,4 @@
-<svg width="300" height="68" viewBox="16 22 300 68" xmlns="http://www.w3.org/2000/svg">
+<svg width="294" height="66" viewBox="16 23 294 66" xmlns="http://www.w3.org/2000/svg">
   <defs><clipPath id="lh"><rect x="0" y="0" width="120" height="66"></rect></clipPath></defs>
   <g>
     <circle cx="60" cy="60" r="36" fill="#0a0a0d" clip-path="url(#lh)"></circle>
@@ -6,5 +6,5 @@
     <rect x="18" y="78" width="60" height="4" fill="#0a0a0d" opacity="0.5"></rect>
   </g>
   <text x="148" y="78" fill="#0a0a0d" font-family="Space Grotesk, Inter, sans-serif" font-size="44" font-weight="600" letter-spacing="-1.6">dark</text>
-  <text x="244" y="78" fill="#0a0a0d" opacity="0.55" font-family="Space Grotesk, Inter, sans-serif" font-size="44" font-weight="400" letter-spacing="-1.6">nyx</text>
+  <text x="239" y="78" fill="#0a0a0d" opacity="0.55" font-family="Space Grotesk, Inter, sans-serif" font-size="44" font-weight="400" letter-spacing="-1.6">nyx</text>
 </svg>

@@ -1,0 +1,5 @@
+/* Enlarge the navbar logo beyond Mintlify's default 24px (.nav-logo = h-6). */
+.nav-logo {
+  height: 2rem !important;   /* 32px */
+  max-width: 16rem !important;
+}
