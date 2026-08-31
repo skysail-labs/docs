@@ -75,22 +75,15 @@ substitutes for the other.
 
 Verification is a client-side step (the SDK ships a helper). In order, you confirm:
 
-```text
- 1. Transport belongs to a live enclave boot?
-        A fresh quote binds the certificate on the actual connection.
-                          │  yes
-                          ▼
- 2. Hardware attestation and code valid?
-        TDX quote signature checks out; platform TCB is current;
-        quote event log commits to the compose_hash YOU expect.
-                          │  yes
-                          ▼
- 3. Same boot and settlement authority end-to-end?
-        transport quote binds the boot session and ordered full signer set;
-        that set == finalized VaultConfig.tee_pubkeys on Solana.
-                          │  all three hold
-                          ▼
-                 trust the channel with order intent
+```mermaid
+flowchart TD
+    A["1. Transport belongs to a live enclave boot?<br/>A fresh quote binds the certificate on the actual connection."]
+    B["2. Hardware attestation and code valid?<br/>TDX quote signature checks out; platform TCB is current; quote event log commits to the compose_hash YOU expect."]
+    C["3. Same boot and settlement authority end-to-end?<br/>Transport quote binds the boot session and ordered full signer set; that set matches the finalized VaultConfig.tee_pubkeys on Solana."]
+    D[trust the channel with order intent]
+    A -->|yes| B
+    B -->|yes| C
+    C -->|"all three hold"| D
 ```
 
 - **Step 1** observes the self-signed certificate on the connection that will

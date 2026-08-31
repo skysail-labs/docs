@@ -61,10 +61,11 @@ on-chain consume-once handle, the note-use tag:
 - it is **deterministic**: every lock, settle, merge, or withdrawal of the same
   note addresses the same `ConsumedNoteEntry`, so the second use collides.
 
-```text
-use note ──► publish note-use tag
-                     │
-   try to use it again ──► same consumed-note PDA already exists ──► rejected
+```mermaid
+flowchart TD
+    A[use note] --> B[publish note-use tag]
+    B --> C[try to use it again]
+    C --> D["same consumed-note PDA already exists → rejected"]
 ```
 
 Public settlement data contains neither input commitments nor a second spend
@@ -131,19 +132,13 @@ single call, leaving you one larger spendable note to back a bigger order.
 
 ## The lifecycle, end to end
 
-```text
- deposit ──► note appended to the tree (SPENDABLE)
-                │
- place order ──► note reserved inside the venue while resting
-                │
- private match ► on-chain note lock created (PENDING SETTLEMENT)
-                │
- settle ──────► input note-use tag marked consumed; outputs appended:
-                  • your filled asset (a new note)
-                  • a change note for any unfilled remainder
-                  • fee notes
-                │
- withdraw ────► note-use tag consumed; tokens released to your wallet
+```mermaid
+flowchart TD
+    A[deposit] --> B["note appended to the tree (SPENDABLE)"]
+    B --> C["place order → note reserved inside the venue while resting"]
+    C --> D["private match → on-chain note lock created (PENDING SETTLEMENT)"]
+    D --> E["settle → input note-use tag marked consumed; outputs appended:<br/>• your filled asset (a new note)<br/>• a change note for any unfilled remainder<br/>• fee notes"]
+    E --> F["withdraw → note-use tag consumed; tokens released to your wallet"]
 ```
 
 The resting reservation prevents one venue session from booking the same

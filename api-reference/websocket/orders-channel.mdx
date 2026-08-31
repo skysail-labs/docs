@@ -78,11 +78,20 @@ and produces no further events.
 
 ## Event flow
 
-```text
-order.place ──► pending_settlement ──► partially_filled ──► … ──► fully_filled
-                                                                       └── terminal
-                    └──► settlement_failed             (terminal; fresh order required)
-            └──► (rests) ──► expired / cancelled             (terminal)
+```mermaid
+stateDiagram-v2
+    [*] --> pending_settlement: order.place
+    pending_settlement --> partially_filled
+    partially_filled --> partially_filled: further fills
+    partially_filled --> fully_filled
+    fully_filled --> [*]
+    pending_settlement --> settlement_failed: fresh order required
+    settlement_failed --> [*]
+    [*] --> resting: order.place, rests
+    resting --> expired
+    resting --> cancelled
+    expired --> [*]
+    cancelled --> [*]
 ```
 
 A partial fill carries the residual size so you always know how much is still

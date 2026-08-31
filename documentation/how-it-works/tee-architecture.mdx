@@ -41,18 +41,13 @@ settlement validity on Solana.
 Attestation is useful only when it is connected to authority. Darknyx closes that
 loop in three checks:
 
-```text
-Intel TDX quote + measured event log
-               │
-               ▼
-client verifies the approved image and complete signer set
-               │
-               ▼
-finalized VaultConfig contains that same ordered signer set
-               │
-               ▼
-Solana accepts a settlement only with a registered signature
-and a valid Groth16 proof
+```mermaid
+flowchart TD
+    A[Intel TDX quote + measured event log]
+    B[client verifies the approved image and complete signer set]
+    C[finalized VaultConfig contains that same ordered signer set]
+    D[Solana accepts a settlement only with a registered signature and a valid Groth16 proof]
+    A --> B --> C --> D
 ```
 
 The quote binds a fresh client challenge and a hash of the complete ordered
