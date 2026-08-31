@@ -23,10 +23,10 @@ persists it. The engine serves HTTPS and WebSocket traffic with that key. The
 deployment gateway routes the connection by hostname but does not terminate its
 TLS, so plaintext first appears inside the measured engine:
 
-```text
-client ═════ TLS encrypted end-to-end ═══► gateway (passthrough) ═══► Darknyx CVM
-                                                                        │
-                                                               plaintext only here
+```mermaid
+flowchart LR
+    C[client] -->|"TLS encrypted end-to-end"| G["gateway<br/>(passthrough)"]
+    G -->|"TLS encrypted end-to-end"| V["Darknyx CVM<br/>plaintext only here"]
 ```
 
 What this gives you:

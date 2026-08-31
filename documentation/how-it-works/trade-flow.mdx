@@ -17,26 +17,13 @@ Solana transaction. Only the *result* settles.
 
 ## Order-to-settlement lifecycle
 
-```text
- ┌────────┐   deposit    ┌───────────────┐   sign+submit    ┌───────────────┐
- │ Wallet │ ───────────► │  Vault (L1)   │                  │   Client/SDK  │
- └────────┘  funds→note  │  custody +    │ ◄─── input proof │  build note,  │
-                         │  note tree    │      + signature │  proof, order │
-                         └───────┬───────┘                  └───────┬───────┘
-                                 │ note exists in tree              │ order (private)
-                                 │                                  ▼
-                                 │                          ┌───────────────┐
-                                 │                          │   Enclave     │
-                                 │                          │  (matching)   │
-                                 │                          │  batch auction│
-                                 │   settle txs + ZK proof  │  prove matches│
-                                 └◄─────────────────────────┤  settle on L1 │
-                                                            └───────┬───────┘
-                                                                    │ fill memos
-                                                                    ▼ + order events
-                                                              ┌───────────┐
-                                                              │  Client   │
-                                                              └───────────┘
+```mermaid
+flowchart TD
+    Wallet[Wallet] -->|"deposit: funds → note"| Vault["Vault (L1)<br/>custody + note tree"]
+    Vault -->|"note exists in tree"| Client["Client / SDK<br/>build note, proof, order"]
+    Client -->|"signed order + input proof"| Enclave["Enclave (matching)<br/>batch auction, prove matches"]
+    Enclave -->|"settle txs + ZK proof"| Vault
+    Enclave -->|"fill memos + order events"| Client
 ```
 
 ## Step by step

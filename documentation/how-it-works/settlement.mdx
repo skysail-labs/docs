@@ -26,20 +26,18 @@ the order book, traders' limits, or the match's plaintext price and amount.
 
 ## The lifecycle
 
-```text
-reserve matched orders
-        │
-        ▼
-lock both unlinkable input-use tags before their expiry
-        │
-        ▼
-verify one batch proof on-chain
-        │
-        ├── send match 1 independently ──► confirmed / rejected / ambiguous
-        ├── send match 2 independently ──► confirmed / rejected / ambiguous
-        └── ...
-                                            │
-                    marker reclaimed only after its expiry
+```mermaid
+flowchart TD
+    A[reserve matched orders]
+    B[lock both unlinkable input-use tags before their expiry]
+    C[verify one batch proof on-chain]
+    A --> B --> C
+    C --> M1["send match 1 independently → confirmed / rejected / ambiguous"]
+    C --> M2["send match 2 independently → confirmed / rejected / ambiguous"]
+    C --> M3["..."]
+    M1 --> R[marker reclaimed only after its expiry]
+    M2 --> R
+    M3 --> R
 ```
 
 | Stage | User-visible meaning |

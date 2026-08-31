@@ -22,13 +22,12 @@ before it could even discover a market.
 
 Darknyx instead presents one venue:
 
-```text
-one verified origin + one CVM + one /v1/stream session
-                           │
-             ┌─────────────┼─────────────┐
-             ▼             ▼             ▼
-          SOL-USDC      BTC-USDC      another pair
-          own book      own book       own book
+```mermaid
+flowchart TD
+    A["one verified origin + one CVM + one /v1/stream session"]
+    A --> B["SOL-USDC<br/>own book"]
+    A --> C["BTC-USDC<br/>own book"]
+    A --> D["another pair<br/>own book"]
 ```
 
 `GET /instruments` lists every pair available in that session. An order's signed
